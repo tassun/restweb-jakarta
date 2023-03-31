@@ -5,6 +5,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -64,6 +65,18 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	
     }
 
+	//curl -X POST http://localhost:8080/myresource/greet -d "name=John&surname=Doe"
+    @POST
+    @Path("/greet")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public String greet(@FormParam("name") String name,@FormParam("surname") String surname) {
+    	System.out.println("name="+name+", surname="+surname);
+    	Map<String,String> map = new HashMap<>();
+    	map.put("message","Greeting, "+name+" "+surname);
+        return JSONObject.toJSONString(map);    	    	
+    }
+    
 	//curl -X POST http://localhost:8080/restweb/webapi/myresource/greeting -d "name=John&surname=Doe"
     @POST
     @Path("/greeting")
