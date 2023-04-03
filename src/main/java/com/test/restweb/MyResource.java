@@ -28,14 +28,14 @@ public class MyResource {
      *
      * @return String that will be returned as a text/plain response.
      */
-	//curl http://localhost:8080/restweb/webapi/myresource
+	//curl http://localhost:8080/restweb-jakarta/webapi/myresource
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getIt() {
         return "Got it!";
     }
     
-	//curl http://localhost:8080/restweb/webapi/myresource/json
+	//curl http://localhost:8080/restweb-jakarta/webapi/myresource/json
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,7 +45,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);
     }
     
-	//curl http://localhost:8080/restweb/webapi/myresource/hi?name=John
+	//curl http://localhost:8080/restweb-jakarta/webapi/myresource/hi?name=John
     @GET
     @Path("/hi")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +55,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	
     }
 
-	//curl http://localhost:8080/restweb/webapi/myresource/hello/John
+	//curl http://localhost:8080/restweb-jakarta/webapi/myresource/hello/John
     @GET
     @Path("/hello/{name}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,7 +65,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	
     }
 
-	//curl -X POST http://localhost:8080/myresource/greet -d "name=John&surname=Doe"
+	//curl -X POST http://localhost:8080/restweb-jakarta/webapi/myresource/greet -d "name=John&surname=Doe"
     @POST
     @Path("/greet")
     @Produces(MediaType.APPLICATION_JSON)
@@ -77,7 +77,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	    	
     }
     
-	//curl -X POST http://localhost:8080/restweb/webapi/myresource/greeting -d "name=John&surname=Doe"
+	//curl -X POST http://localhost:8080/restweb-jakarta/webapi/myresource/greeting -d "name=John&surname=Doe"
     @POST
     @Path("/greeting")
     @Produces(MediaType.APPLICATION_JSON)
@@ -91,7 +91,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	    	
     }
 
-	//curl -X POST http://localhost:8080/restweb/webapi/myresource/bonjour -d "John Doe"
+	//curl -X POST http://localhost:8080/restweb-jakarta/webapi/myresource/bonjour -d "John Doe"
     @POST
     @Path("/bonjour")
     @Produces(MediaType.APPLICATION_JSON)
@@ -102,7 +102,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	    	
     }
     
-	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb/webapi/myresource/xinchao -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/xinchao -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
     @POST
     @Path("/xinchao")
     @Produces(MediaType.APPLICATION_JSON)
@@ -123,7 +123,7 @@ public class MyResource {
         return JSONObject.toJSONString(map);    	    	    	    	
     }
     
-	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb/webapi/myresource/sabaidi -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/sabaidi -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
     @POST
     @Path("/sabaidi")
     @Produces(MediaType.APPLICATION_JSON)
@@ -142,7 +142,7 @@ public class MyResource {
         return Response.ok(greet).build();    	    	    	
     }
     
-	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb/webapi/myresource/nihao -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/nihao -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
     @POST
     @Path("/nihao")
     @Produces(MediaType.APPLICATION_JSON)
@@ -153,7 +153,7 @@ public class MyResource {
     }
     
     
-	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb/webapi/myresource/hallo -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/hallo -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
     @POST
     @Path("/hallo")
     @Produces(MediaType.APPLICATION_XML)
@@ -163,4 +163,27 @@ public class MyResource {
         return new Hello("Hallo, "+account.getFullName());   	    	    	    	    	    	
     }
     
+	//curl -X POST -H "Accept: application/json" -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/hola -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Accept: application/xml" -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/hola -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+    //if not defined Accept when request it will return first produce format
+    @POST
+    @Path("/hola")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Hello hola(Account account) {
+    	System.out.println("account="+account);
+        return new Hello("Hola, "+account.getFullName());   	    	    	    	    	    	
+    }
+
+	//curl -X POST -H "Content-Type: application/json" http://localhost:8080/restweb-jakarta/webapi/myresource/konnichiwa -d "{\"name\":\"John\",\"surname\":\"Doe\"}"
+	//curl -X POST -H "Content-Type: application/xml" http://localhost:8080/restweb-jakarta/webapi/myresource/konnichiwa -d "<account><name>John</name><surname>Doe</surname></account>"
+    @POST
+    @Path("/konnichiwa")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Hello konnichiwa(Account account) {
+    	System.out.println("account="+account);
+        return new Hello("Konnichiwa, "+account.getFullName());   	    	    	    	    	    	
+    }
+
 }

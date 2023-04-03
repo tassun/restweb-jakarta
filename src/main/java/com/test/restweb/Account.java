@@ -1,5 +1,9 @@
 package com.test.restweb;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="account")
 public class Account {
 	private String name;
 	private String surname;
@@ -9,12 +13,14 @@ public class Account {
 	public String getName() {
 		return name;
 	}
+	@XmlElement
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getSurname() {
 		return surname;
 	}
+	@XmlElement
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
